@@ -8,7 +8,7 @@ use CodeIgniter\Database\Migration;
  * Creates the player table with the following fields:
  * - id                 (UNSIGNED INT 5)
  * - username           (VARCHAR 200)
- * - status             (VARCHAR 100)
+ * - status             (ENUM (SEARCHING, PLAYING, TIMED_OUT, DISCONNECTED))
  * - created_at         (DATETIME, TIMESTAMP)
  * - last_activity_at   (DATETIME, TIMESTAMP)
  */
@@ -18,7 +18,7 @@ class Player extends Migration
      * Creates the player table with the following fields:
      * - id                 (UNSIGNED INT 5)
      * - username           (VARCHAR 200)
-     * - status             (VARCHAR 100)
+     * - status             (ENUM (SEARCHING, PLAYING, TIMED_OUT, DISCONNECTED))
      * - created_at         (DATETIME, TIMESTAMP)
      * - last_activity_at   (DATETIME, TIMESTAMP)
      * @return void
@@ -27,8 +27,8 @@ class Player extends Migration
     {
         $this->forge->addField([
             'id' => ['type' => 'INT','usigned'=>true, 'constraint' => 5, 'unsigned' => true, 'auto_increment' => true],
-            'username' => ['type' => 'VARCHAR', 'constraint' => 200],
-            'status' => ['type' => 'VARCHAR', 'constraint' => 100],
+            'username' => ['type' => 'VARCHAR', 'unique' => true, 'constraint' => 200],
+            'status' => ['type' => 'ENUM', 'constraint' => ['SEARCHING', 'PLAYING', 'TIMED_OUT', 'DISCONNECTED'], 'default' => 'SEARCHING'],
             'created_at datetime default current_timestamp',
             'last_activity_at datetime default current_timestamp',
         ]);

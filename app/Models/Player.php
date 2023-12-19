@@ -8,7 +8,7 @@ use CodeIgniter\Model;
  * Player Model class with the following fields:
  * - id                     (int)
  * - username               (string)
- * - status                 (string)
+ * - status                 (enum)
  * - created_at             (timestamp)
  * - last_activity_at       (timestamp)
  */
