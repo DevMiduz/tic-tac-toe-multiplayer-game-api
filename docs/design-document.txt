@@ -1,0 +1,19 @@
+An API key table with an array of allowed domain names and ip addresses.
+- Management of keys can be done from a server side script.
+- All that is required is a validate_api_key function.
+
+Basic requirements of the API are as follows:
+- Player looks for a game lobby.
+- If there are two Player's looking for a game then they are matched.
+
+We may have to Player's Table which holds a guid, gdevelop username, status, last_activity_timestamp, search_timestamp (creation).
+
+The status may be:
+- SEARCHING.
+- PLAYING.
+- TIMED_OUT.
+- DISCONNECTED.
+
+Players who have been waiting for the longest will be matched to a game.
+
+A Lobby will contain a guid, players structure (array?), game data (json structure).
