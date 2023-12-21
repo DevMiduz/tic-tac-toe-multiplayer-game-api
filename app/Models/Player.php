@@ -17,21 +17,27 @@ class Player extends Model
     protected $table            = 'players';
     protected $primaryKey       = 'id';
     protected $useAutoIncrement = true;
-    protected $returnType       = 'array';
+    protected $returnType       = \App\Entities\Player::class;
     protected $useSoftDeletes   = false;
     protected $protectFields    = true;
-    protected $allowedFields    = [ 'username', 'status', 'last_activity_at' ];
+    protected $allowedFields    = [ 'username', 'status', 'player_key', 'last_activity_at' ];
 
     // Dates
     protected $useTimestamps = true;
-    protected $dateFormat    = 'datetime';
+    protected $dateFormat    = 'int';
     protected $createdField  = 'created_at';
-    protected $updatedField  = 'updated_at';
-    protected $deletedField  = 'deleted_at';
+    protected $updatedAtField  = 'updated_at';
 
     // Validation
-    protected $validationRules      = [];
+    protected $validationRules      = [
+        'username' => 'required|max_length[200]|is_unique[players.username,id,{$username}]',
+        'status' => 'required|in_list[SEARCHING,PLAYING,TIMED_OUT,DISCONNECTED]',
+        'player_key' => 'required|max_length[254]|is_unique[players.player_key,id,{$player_key}]',
+        'last_activity_at' => 'required'
+    ];
+
     protected $validationMessages   = [];
+
     protected $skipValidation       = false;
     protected $cleanValidationRules = true;
 
@@ -45,4 +51,5 @@ class Player extends Model
     protected $afterFind      = [];
     protected $beforeDelete   = [];
     protected $afterDelete    = [];
+
 }

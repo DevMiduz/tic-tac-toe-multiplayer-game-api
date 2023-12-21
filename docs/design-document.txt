@@ -17,3 +17,8 @@ The status may be:
 Players who have been waiting for the longest will be matched to a game.
 
 A Lobby will contain a guid, players structure (array?), game data (json structure).
+
+There will have to be an api_key check middleware which forbids anyone with an invalid key.
+
+It may also be beneficial to generate a unique player key as well this way they a username and generated key would have to exist.
+It would stop people forcing through a fake username.

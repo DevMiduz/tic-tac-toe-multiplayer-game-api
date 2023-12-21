@@ -29,7 +29,9 @@ class Player extends Migration
             'id' => ['type' => 'INT','usigned'=>true, 'constraint' => 5, 'unsigned' => true, 'auto_increment' => true],
             'username' => ['type' => 'VARCHAR', 'unique' => true, 'constraint' => 200],
             'status' => ['type' => 'ENUM', 'constraint' => ['SEARCHING', 'PLAYING', 'TIMED_OUT', 'DISCONNECTED'], 'default' => 'SEARCHING'],
+            'player_key' => ['type' => 'VARCHAR', 'unique' => true, 'constraint' => 255],
             'created_at datetime default current_timestamp',
+            'updated_at datetime default current_timestamp',
             'last_activity_at datetime default current_timestamp',
         ]);
         $this->forge->addKey('id', true);
