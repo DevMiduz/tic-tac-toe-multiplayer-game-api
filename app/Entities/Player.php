@@ -22,7 +22,7 @@ class Player extends Entity
      * @return void
      */
     public function generateNewPlayerKey() {
-        $this->player_key = bin2hex(random_bytes(64));
+        $this->attributes['player_key'] = bin2hex(random_bytes(64));
     }
 
     /**
@@ -31,7 +31,7 @@ class Player extends Entity
      * @return void
      */
     public function updateLastActivityAt() {
-        $this->last_activity_at = Time::now()->getTimestamp();
+        $this->attributes['last_activity_at'] = Time::now()->getTimestamp();
     }
 
     /**
@@ -41,6 +41,7 @@ class Player extends Entity
      * @return void
      */
     public function setStatus(PlayerStatus $status) {
-        $this->status = $status;
+        $this->attributes['status'] = $status->value;
     }
+
 }

@@ -35,10 +35,32 @@ class Player extends BaseController
         $player_entity->setStatus(PlayerStatus::SEARCHING);
         $player_entity->generateNewPlayerKey();
         $player_entity->updateLastActivityAt();
-        $player_model->save($player_entity);
+        if($player_model->save($player_entity) === false) {
+            return $this->fail(['errors' => $player_model->errors()], 400);
+        };
         
+        return $this->respondCreated($player_entity);
+
         return $this->respondCreated([
-            'player_key' => $player_entity->player_key
+            'player_key' => $player_entity->player_key,
+            'status' => $player_entity->status
         ]);
+    }
+
+    public function test_retrieve($username) {
+        $player_model = new \App\Models\Player();
+        $player_entity = $player_model->where('username', $username)->first();
+
+        /*remember to handle nulls when data doesn't exist.*/
+
+        return $this->respond([
+            'player_key' => $player_entity->player_key,
+            'status' => $player_entity->status
+        ]);
+    }
+
+    public function get_all() {
+        $player_model = new \App\Models\Player();
+        return $this->respond($player_model->findAll());
     }
 }
